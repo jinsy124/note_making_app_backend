@@ -3,6 +3,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from app.core.database import Base
 from datetime import datetime, timezone
 import uuid
+from sqlalchemy.orm import Relationship
 
 class User(Base):
     __tablename__ = "users"
@@ -16,7 +17,7 @@ class User(Base):
     last_name = Column(String, nullable=True)
     is_verified = Column(Boolean, nullable=False, server_default='false')
     hashed_password = Column(String, nullable=False)
-
+    notes = Relationship("Note",back_populates="owner", cascade="all,delete-orphan")
     created_at = Column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),

@@ -41,12 +41,14 @@ async def login_users(login_data:UserLoginModel,session:AsyncSession=Depends(get
         if password_valid:
             access_token = create_access_token(
                 user_data={
+                    'id':user.id,
                     'email':user.email,
                     'user_uid':str(user.uuid)
                 }
             )
             refresh_token = create_access_token(
                 user_data={
+                    'id':user.id,
                     'email':user.email,
                     'user_uid':str(user.uuid)
                 },
