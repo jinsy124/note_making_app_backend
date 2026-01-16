@@ -5,7 +5,7 @@ from fastapi import status
 from fastapi import FastAPI
 
 class NotesException(Exception):
-    """This is the base class for all bookly errors"""
+    """This is the base class for all notes errors"""
 
     pass
 
@@ -36,7 +36,7 @@ class InsufficientPermission(NotesException):
     """User does not have the neccessary permissions to perform an action"""
     pass
 
-class BookNotFound(NotesException):
+class NoteNotFound(NotesException):
     """Note Not Found"""
     pass
 
@@ -142,7 +142,7 @@ def register_all_errors(app:FastAPI):
         ),
     )
     app.add_exception_handler(
-        BookNotFound,
+        NoteNotFound,
         create_exception_handler(
             status_code=status.HTTP_404_NOT_FOUND,
             initial_detail={

@@ -42,13 +42,13 @@ async def login_users(login_data:UserLoginModel,session:AsyncSession=Depends(get
             access_token = create_access_token(
                 user_data={
                     'email':user.email,
-                    'user_uid':user.uuid
+                    'user_uid':str(user.uuid)
                 }
             )
             refresh_token = create_access_token(
                 user_data={
                     'email':user.email,
-                    'user_uid':user.uuid
+                    'user_uid':str(user.uuid)
                 },
                 expiry=timedelta(days=REFRESH_TOKEN_EXPIRY),
                 refresh=True
@@ -61,7 +61,7 @@ async def login_users(login_data:UserLoginModel,session:AsyncSession=Depends(get
                     'refresh_token':refresh_token,
                     'user':{
                         'email':user.email,
-                        'user_uid':user.uuid
+                        'user_uid':str(user.uuid)
                     }
                 }
             )
